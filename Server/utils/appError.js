@@ -1,4 +1,4 @@
-class AppError extends Error {
+className AppError extends Error {
     constructor(message, statusCode){
         super(message);
 
