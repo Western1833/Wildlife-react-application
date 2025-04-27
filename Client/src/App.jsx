@@ -4,6 +4,7 @@ import {Routes, Route} from 'react-router-dom';
 import GamesCatalogue from "./components/GameCatalogue/GamesCatalogue.jsx";
 import GamesCreate from "./components/GamesCreate/GamesCreate.jsx";
 import Login from "./components/auth/Login/Login.jsx";
+import Register from "./components/auth/Register/Register.jsx";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/games" element={<GamesCatalogue/>} />
         <Route path="/games/create" element={<GamesCreate/>} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/register" element={<Register/>} />
       </Routes>
     </div>
   );
