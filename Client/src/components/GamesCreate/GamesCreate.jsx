@@ -1,6 +1,10 @@
+import {useNavigate} from 'react-router-dom';
 import { useState } from "react";
+import {create} from '../../services/gameService.js';
 
 export default function GamesCreate() {
+    const navigate = useNavigate();
+    
     const [game, setGame] = useState({
         title: '',
         category: '',
@@ -18,9 +22,24 @@ export default function GamesCreate() {
         }));
     }
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
-        console.log(`Form submitted: ${JSON.stringify(game)}`);
+        
+        try{
+            await create(game);
+
+            setGame({
+                title: '',
+                category: '',
+                maxLevel: '',
+                imageUrl: '',
+                summary: ''
+            });
+
+            navigate('/games');
+        }catch(err) {
+            console.log(err);
+        }
     }
 
     return(
@@ -29,16 +48,16 @@ export default function GamesCreate() {
             <div className="container">
 
                 <h1>Create Game</h1>
-                <label htmlFor="leg-title">Legendary title:</label>
+                <label htmlFor="title">Legendary title:</label>
                 <input type="text" id="title" name="title" value={game.title} onChange={changeHandler} placeholder="Enter game title..." />
 
                 <label htmlFor="category">Category:</label>
                 <input type="text" id="category" name="category" value={game.category} onChange={changeHandler} placeholder="Enter game category..." />
 
-                <label htmlFor="levels">MaxLevel:</label>
+                <label htmlFor="maxLevel">MaxLevel:</label>
                 <input type="number" id="maxLevel" name="maxLevel" min="1" value={game.maxLevel} onChange={changeHandler} placeholder="1" />
 
-                <label htmlFor="game-img">Image:</label>
+                <label htmlFor="imageUrl">Image:</label>
                 <input type="text" id="imageUrl" name="imageUrl" value={game.imageUrl} onChange={changeHandler} placeholder="Upload a photo..." />
 
                 <label htmlFor="summary">Summary:</label>
