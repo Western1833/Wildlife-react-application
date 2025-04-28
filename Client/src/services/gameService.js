@@ -1,13 +1,12 @@
-const baseUrl = 'http://127.0.0.1:8000/api/v1';
+import {request} from '../lib/request.js';
+const baseUrl = 'http://127.0.0.1:8000/api/v1/items';
 
-export const create = async (gameData) => {
-    const response = await fetch(`${baseUrl}/items`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(gameData)
-    });
+export const createGame = async (gameData) => {
+    await request('POST', baseUrl, gameData);
+}
 
-    const result = await response.json();
+export const getAllGames = async() => {
+    const response = await request('GET', baseUrl);
 
-    return result;
+    return response.data;
 }
