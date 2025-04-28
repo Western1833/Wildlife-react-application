@@ -1,4 +1,4 @@
-className APIfeatures {
+class APIfeatures {
     constructor(query, queryString){
         this.query = query;
         this.queryString = queryString;
