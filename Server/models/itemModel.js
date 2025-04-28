@@ -13,7 +13,9 @@ const itemSchema = new mongoose.Schema({
     },
     maxLevel: {
         type: Number,
-        required: [true, 'A tour must have a price!']
+        required: [true, 'A tour must have a price!'],
+        min: [1, 'Minimum level is 1!'],
+        max: [99, 'Max level is 99!']
     },
     summary: {
         type: String,
