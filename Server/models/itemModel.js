@@ -22,9 +22,9 @@ const itemSchema = new mongoose.Schema({
         trim: true,
         required: [true, 'A tour must have a summary!']
     },
-    imageCover: {
+    imageUrl: {
         type: String,
-        required: [true, 'A tour must have a image cover!']
+        required: [true, 'A tour must have a image url!']
     },
     createdAt: {
         type: Date,

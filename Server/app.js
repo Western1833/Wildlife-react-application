@@ -7,11 +7,14 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xssProtect = require('./utils/xssMiddleware.js');
 const hpp = require('hpp');
+const cors = require('cors');
 
 const itemRouter = require('./routes/itemRoutes');
 const userRouter = require('./routes/userRoutes');
 
 const app = express();
+
+app.use(cors());
 
 // Use Helmet for security headers
 app.use(helmet());
