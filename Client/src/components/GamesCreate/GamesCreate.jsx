@@ -1,10 +1,10 @@
 import {useNavigate} from 'react-router-dom';
 import { useState } from "react";
-import {create} from '../../services/gameService.js';
+import * as gameService from '../../services/gameService.js';
 
 export default function GamesCreate() {
     const navigate = useNavigate();
-    
+
     const [game, setGame] = useState({
         title: '',
         category: '',
@@ -26,7 +26,7 @@ export default function GamesCreate() {
         e.preventDefault();
         
         try{
-            await create(game);
+            await gameService.createGame(game);
 
             setGame({
                 title: '',
