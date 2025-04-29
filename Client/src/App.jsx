@@ -6,8 +6,15 @@ import GamesCreate from "./components/GamesCreate/GamesCreate.jsx";
 import Login from "./components/auth/Login/Login.jsx";
 import Register from "./components/auth/Register/Register.jsx";
 import GameDetails from "./components/GameDetails/GameDetails.jsx";
+// import { useState } from "react";
 
 function App() {
+  // const [auth, setAuth] = useState({});
+
+  const loginSubmitHandler = (values) => {
+    console.log(values)
+  }
+
   return (
     <div id="box">
       <Header/>
@@ -16,7 +23,7 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/games" element={<GamesCatalogue/>} />
         <Route path="/games/create" element={<GamesCreate/>} />
-        <Route path="/login" element={<Login/>} />
+        <Route path="/login" element={<Login loginSubmitHandler={loginSubmitHandler}/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/games/:id/details" element={<GameDetails/>} />
       </Routes>
