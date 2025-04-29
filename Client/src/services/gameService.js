@@ -5,6 +5,12 @@ export const createGame = async (gameData) => {
     await request('POST', baseUrl, gameData);
 }
 
+export const getSingleGame = async (id) => {
+    const response = await request('GET', `${baseUrl}/${id}`);
+
+    return response.item;
+}
+
 export const getAllGames = async() => {
     const response = await request('GET', baseUrl);
 
