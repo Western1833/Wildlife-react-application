@@ -3,7 +3,7 @@ const factory = require('./handlerFactory.js');
 
 exports.getAllItems = factory.getAll(Item);
 
-exports.getSingleItem = factory.getOne(Item, 'item');
+exports.getSingleItem = factory.getOne(Item, null, 'item');
 
 exports.createItem = factory.createOne(Item, 'item');
 
