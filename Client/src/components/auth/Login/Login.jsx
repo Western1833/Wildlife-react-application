@@ -1,10 +1,11 @@
-import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import useForm from "../../../hooks/useForm.js";
+import { useContext } from 'react';
+import AuthContext from '../../../contexts/authContext.js';
 
-export default function Login({
-    loginSubmitHandler
-}) {
+export default function Login() {
+    const {loginSubmitHandler} = useContext(AuthContext);
+
     const {values, onChange, onSubmit} = useForm(loginSubmitHandler, {
         email: '',
         password: ''
@@ -31,7 +32,3 @@ export default function Login({
     </section>
     );
 }
-
-Login.propTypes = {
-    loginSubmitHandler: PropTypes.string.isRequired,
-};
