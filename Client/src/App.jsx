@@ -21,8 +21,14 @@ function App() {
     navigate('/');
   }
 
+  const values = {
+    loginSubmitHandler,
+    email: auth.email,
+    isAuthenticated: !!auth.email
+  }
+
   return (
-    <AuthContext.Provider value={{loginSubmitHandler, ...auth}}>
+    <AuthContext.Provider value={{values}}>
       <div id="box">
         <Header />
 
