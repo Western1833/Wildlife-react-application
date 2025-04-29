@@ -1,22 +1,37 @@
-export default function Login() {
+import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
+import useForm from "../../../hooks/useForm.js";
+
+export default function Login({
+    loginSubmitHandler
+}) {
+    const {values, onChange, onSubmit} = useForm(loginSubmitHandler, {
+        email: '',
+        password: ''
+    });
+
     return(
         <section id="login-page" className="auth">
-        <form id="login">
+        <form id="login" onSubmit={onSubmit}>
 
             <div className="container">
                 <div className="brand-logo"></div>
                 <h1>Login</h1>
                 <label htmlFor="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Sokka@gmail.com" />
+                <input type="email" id="email" name="email" placeholder="Sokka@gmail.com" onChange={onChange} value={values.email} />
 
-                <label htmlFor="login-pass">Password:</label>
-                <input type="password" id="login-password" name="password" />
+                <label htmlFor="login-password">Password:</label>
+                <input type="password" id="login-password" name="password" onChange={onChange} value={values.password} />
                 <input type="submit" className="btn submit" value="Login" />
                 <p className="field">
-                    <span>If you don&apos;t have profile click <a href="/register">here</a></span>
+                    <span>If you don&apos;t have profile click <Link to="/register">here</Link></span>
                 </p>
             </div>
         </form>
     </section>
     );
 }
+
+Login.propTypes = {
+    loginSubmitHandler: PropTypes.string.isRequired,
+};
