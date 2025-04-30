@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 const AppError = require('./utils/appError.js');
 const globalErrorHandler = require('./controlers/errorController.js');
 const rateLimit = require('express-rate-limit');
@@ -14,7 +15,10 @@ const userRouter = require('./routes/userRoutes');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // frontend origin
+  credentials: true                   // allow cookies
+}));
 
 // Use Helmet for security headers
 app.use(helmet());
@@ -73,7 +77,14 @@ app.use(hpp({
     whitelist: ['duration', 'ratingsAverage', 'ratingsQuantity', 'maxGroupSize', 'difficulty', 'price', 'durationWeeks']
 }));
 
+app.use(cookieParser());
+
 app.use(express.static(`${__dirname}/public`));
+
+app.use((req, res, next) => {
+  console.log(req.cookies);
+  next();
+});
 
 app.use('/api/v1/items', itemRouter);
 app.use('/api/v1/users', userRouter);
