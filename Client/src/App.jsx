@@ -21,14 +21,19 @@ function App() {
     navigate('/');
   }
 
+  const registerSubmitHandler = async (values) => {
+    console.log(values)
+  }
+
   const values = {
     loginSubmitHandler,
+    registerSubmitHandler,
     email: auth.email,
     isAuthenticated: !!auth.email
   }
 
   return (
-    <AuthContext.Provider value={{values}}>
+    <AuthContext.Provider value={values}>
       <div id="box">
         <Header />
 
