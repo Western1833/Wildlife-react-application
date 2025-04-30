@@ -73,7 +73,7 @@ exports.logout = (req, res) => {
     });
 };
 
-exports.protect = async (req, res, next) => {
+exports.protect = catchAsync(async (req, res, next) => {
     let token;
 
     if (req.cookies && req.cookies.jwt) {
@@ -82,7 +82,7 @@ exports.protect = async (req, res, next) => {
         token = req.headers.authorization.split(' ')[1];
     }
 
-    if (!token) return next(new AppError('You are not logged in! Please log in to gain access.', 401));
+    if (!token || token === 'loggedout') return next(new AppError('You are not logged in! Please log in to gain access.', 401));
 
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
@@ -94,4 +94,4 @@ exports.protect = async (req, res, next) => {
 
     req.user = currentUser;
     next();
-};
+});
