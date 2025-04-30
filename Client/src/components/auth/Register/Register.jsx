@@ -9,7 +9,7 @@ export default function Register() {
     const {values, onChange, onSubmit} = useForm(registerSubmitHandler, {
         email: '',
         password: '',
-        rePass: ''
+        passwordConfirm: ''
     });
 
     return(
@@ -26,7 +26,7 @@ export default function Register() {
                 <input type="password" name="password" id="register-password" onChange={onChange} value={values.password} />
 
                 <label htmlFor="confirm-password">Confirm Password:</label>
-                <input type="password" name="rePass" id="confirm-password" onChange={onChange} value={values.rePass} />
+                <input type="password" name="passwordConfirm" id="confirm-password" onChange={onChange} value={values.passwordConfirm} />
 
                 <input className="btn submit" type="submit" value="Register" />
 

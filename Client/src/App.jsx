@@ -9,6 +9,7 @@ import GameDetails from "./components/GameDetails/GameDetails.jsx";
 import AuthContext from "./contexts/authContext.js";
 import * as authService from './services/authService.js';
 import { useState } from "react";
+import Logout from "./components/auth/Logout.jsx";
 
 function App() {
   const navigate = useNavigate();
@@ -22,14 +23,23 @@ function App() {
   }
 
   const registerSubmitHandler = async (values) => {
-    console.log(values)
+    const result = await authService.register(values.email, values.password, values.passwordConfirm);
+
+    setAuth(result);
+    navigate('/login');
+  }
+
+  const logoutHandler = () => {
+    setAuth({});
   }
 
   const values = {
     loginSubmitHandler,
     registerSubmitHandler,
-    email: auth.email,
-    isAuthenticated: !!auth.email
+    logoutHandler,
+    email: auth?.data?.user?.email,
+    token: auth?.token,
+    isAuthenticated: !!auth?.token
   }
 
   return (
@@ -43,6 +53,7 @@ function App() {
           <Route path="/games/create" element={<GamesCreate />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/games/:id/details" element={<GameDetails />} />
         </Routes>
       </div>
