@@ -34,7 +34,7 @@ exports.updateOne = (Model, whatIsUpdated) => catchAsync(async (req, res, next) 
 });
 
 exports.createOne = (Model, whatIsCreated) => catchAsync(async (req, res, next) => {
-    const newDoc = await Model.create(req.body);
+    const newDoc = await Model.create({...req.body, creator: req.user._id});
 
     res.status(200).json({
         status: 'success',

@@ -30,6 +30,11 @@ const itemSchema = new mongoose.Schema({
         type: Date,
         default: Date.now(),
         select: false
+    },
+    creator: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 }, {
     toJSON: {virtuals: true},
