@@ -55,7 +55,8 @@ function App() {
     logoutHandler,
     email: auth?.data?.user?.email,
     token: auth?.token,
-    isAuthenticated: !!auth?.token
+    isAuthenticated: !!auth?.token,
+    userId: auth?.data?.user?._id
   }
 
   return (
