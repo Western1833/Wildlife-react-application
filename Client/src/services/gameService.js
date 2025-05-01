@@ -16,3 +16,9 @@ export const getAllGames = async() => {
 
     return response.data;
 }
+
+export const getLatestThree = async() => {
+    const response = await request('GET', `${baseUrl}?sort=-createdAt&limit=3`);
+
+    return response.data;
+}
