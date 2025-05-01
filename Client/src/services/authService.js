@@ -20,6 +20,7 @@ export const logout = async () => {
 
 
 export const getCurrentUser = async () => {
-    const res = await request('GET', 'http://localhost:8000/api/v1/users/me');
+    const res = await request('GET', `${baseUrl}/me`);
     return res.data;
-  };
+};
+  

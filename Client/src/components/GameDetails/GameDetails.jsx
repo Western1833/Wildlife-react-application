@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom";
 import * as gameService from '../../services/gameService.js';
-import AuthContext from "../../contexts/authContext.jsx";
+import AuthContext from "../../contexts/authContext.js";
 
 export default function GameDetails() {
     const { id } = useParams();
