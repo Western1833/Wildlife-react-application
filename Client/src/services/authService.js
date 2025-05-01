@@ -17,3 +17,9 @@ export const register = async (email, password, passwordConfirm) => {
 export const logout = async () => {
     await request('GET', `${baseUrl}/logout`);
 }
+
+
+export const getCurrentUser = async () => {
+    const res = await request('GET', 'http://localhost:8000/api/v1/users/me');
+    return res.data;
+  };

@@ -8,12 +8,28 @@ import Register from "./components/auth/Register/Register.jsx";
 import GameDetails from "./components/GameDetails/GameDetails.jsx";
 import AuthContext from "./contexts/authContext.js";
 import * as authService from './services/authService.js';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Logout from "./components/auth/Logout.jsx";
 
 function App() {
   const navigate = useNavigate();
   const [auth, setAuth] = useState({});
+
+  useEffect(() => {
+    const restoreUser = async () => {
+      try {
+        const user = await authService.getCurrentUser(); // Your /me endpoint
+        setAuth({
+          data: { user },
+          token: 'cookie', // You can set a placeholder or skip it
+        });
+      } catch (err) {
+        setAuth({});
+      }
+    };
+
+    restoreUser();
+  }, []);
 
   const loginSubmitHandler = async (values) => {
     const result = await authService.login(values.email, values.password);
