@@ -58,6 +58,13 @@ exports.login = catchAsync(async (req, res, next) => {
     createSendToken(user, 200, res);
 });
 
+exports.getMe = (req, res) => {
+    res.status(200).json({
+        status: 'success',
+        data: req.user,
+    });
+};
+
 exports.logout = (req, res) => {
     res.cookie('jwt', 'loggedout', {
         expires: new Date(Date.now() + 10 * 1000), // Setting the expiration date to the past (Unix epoch start)
