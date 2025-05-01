@@ -1,18 +1,22 @@
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react"
+import { Link, useParams } from "react-router-dom";
 import * as gameService from '../../services/gameService.js';
+import AuthContext from "../../contexts/authContext.js";
 
 export default function GameDetails() {
-    const {id} = useParams();
+    const { id } = useParams();
     const [game, setGame] = useState({});
+    const { userId } = useContext(AuthContext);
+
+    const isCreator = userId === game.creator;
 
     useEffect(() => {
-         gameService.getSingleGame(id)
-        .then(setGame)
-        .catch(err => console.log(err));
+        gameService.getSingleGame(id)
+            .then(setGame)
+            .catch(err => console.log(err));
     }, [id]);
 
-    return(
+    return (
         <section id="game-details">
             <h1>Game Details</h1>
             <div className="info-section">
@@ -26,11 +30,14 @@ export default function GameDetails() {
 
                 <p className="text">{game.summary}</p>
 
-                {/* Edit/Delete buttons ( Only for creator of this game )  */}
-                <div className="buttons">
-                    <a href="#" className="button">Edit</a>
-                    <a href="#" className="button">Delete</a>
-                </div>
+                {
+                    isCreator && (
+                        <div className="buttons">
+                            <Link to="#" className="button">Edit</Link>
+                            <Link to="#" className="button">Delete</Link>
+                        </div>
+                    )
+                }
             </div>
         </section>
     )
