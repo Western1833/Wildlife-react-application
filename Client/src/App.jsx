@@ -53,11 +53,10 @@ function App() {
     loginSubmitHandler,
     registerSubmitHandler,
     logoutHandler,
-    email: auth?.data?.user?.user?.email || auth?.data?.user?.email,
-    isAuthenticated: !!auth?.data?.user?.user || auth?.data?.user,
-    userId: auth?.data?.user?.user?._id || auth?.data?.user?.userId
+    email: auth?.data?.user?.user?.email || auth?.data?.user?.email, //done as is with || becausue of different server responses, update on server is required
+    isAuthenticated: !!auth?.data?.user?.user || auth?.data?.user, //done as is with || becausue of different server responses, update on server is required
+    userId: auth?.data?.user?.user?._id || auth?.data?.user?.userId //done as is with || becausue of different server responses, update on server is required
   }
-  console.log(values)
 
   return (
     <AuthContext.Provider value={values}>
