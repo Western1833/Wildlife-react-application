@@ -21,6 +21,5 @@ export const logout = async () => {
 
 export const getCurrentUser = async () => {
     const res = await request('GET', `${baseUrl}/me`);
-    return res.data;
+    return res;
 };
-  

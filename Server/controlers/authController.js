@@ -3,6 +3,7 @@ const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const catchAsync = require('../utils/catchAsync.js');
 const AppError = require('../utils/appError.js');
+const factory = require('./handlerFactory.js');
 
 const signToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -58,11 +59,9 @@ exports.login = catchAsync(async (req, res, next) => {
     createSendToken(user, 200, res);
 });
 
-exports.getMe = (req, res) => {
-    res.status(200).json({
-        status: 'success',
-        data: req.user,
-    });
+exports.getMe = (req, res, next) => {
+    req.params.id = req.user.id;
+    next();
 };
 
 exports.logout = (req, res) => {
@@ -102,3 +101,5 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.user = currentUser;
     next();
 });
+
+exports.getSingleUser = factory.getOne(User, null, 'user');

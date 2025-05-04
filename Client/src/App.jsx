@@ -18,18 +18,18 @@ function App() {
   useEffect(() => {
     const restoreUser = async () => {
       try {
-        const user = await authService.getCurrentUser(); // Your /me endpoint
+        const user = await authService.getCurrentUser();
         setAuth({
-          data: { user },
-          token: 'cookie', // You can set a placeholder or skip it
+          data: { user }
         });
       } catch (err) {
         setAuth({});
       }
     };
-
+  
     restoreUser();
   }, []);
+  
 
   const loginSubmitHandler = async (values) => {
     const result = await authService.login(values.email, values.password);
@@ -53,11 +53,11 @@ function App() {
     loginSubmitHandler,
     registerSubmitHandler,
     logoutHandler,
-    email: auth?.data?.user?.email,
-    token: auth?.token,
-    isAuthenticated: !!auth?.token,
-    userId: auth?.data?.user?._id
+    email: auth?.data?.user?.user?.email || auth?.data?.user?.email,
+    isAuthenticated: !!auth?.data?.user?.user || auth?.data?.user,
+    userId: auth?.data?.user?.user?._id || auth?.data?.user?.userId
   }
+  console.log(values)
 
   return (
     <AuthContext.Provider value={values}>
