@@ -10,6 +10,7 @@ import AuthContext from "./contexts/authContext.js";
 import * as authService from './services/authService.js';
 import { useState, useEffect } from "react";
 import Logout from "./components/auth/Logout.jsx";
+import GameEdit from "./components/GameEdit/GameEdit.jsx";
 
 function App() {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ function App() {
     logoutHandler,
     email: auth?.data?.user?.user?.email || auth?.data?.user?.email, //done as is with || becausue of different server responses, update on server is required
     isAuthenticated: !!auth?.data?.user?.user || auth?.data?.user, //done as is with || becausue of different server responses, update on server is required
-    userId: auth?.data?.user?.user?._id || auth?.data?.user?.userId //done as is with || becausue of different server responses, update on server is required
+    userId: auth?.data?.user?.user?._id || auth?.data?.user?._id //done as is with || becausue of different server responses, update on server is required
   }
 
   return (
@@ -71,6 +72,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/games/:id/details" element={<GameDetails />} />
+          <Route path="/games/:id/edit" element={<GameEdit/>} />
         </Routes>
       </div>
       </AuthContext.Provider>

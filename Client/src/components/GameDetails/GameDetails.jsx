@@ -33,8 +33,8 @@ export default function GameDetails() {
                 {
                     isCreator && (
                         <div className="buttons">
-                            <Link to="#" className="button">Edit</Link>
-                            <Link to="#" className="button">Delete</Link>
+                            <Link to={`/games/${game.id}/edit`} className="button">Edit</Link>
+                            <Link to={`/games/${game.id}/delete`} className="button">Delete</Link>
                         </div>
                     )
                 }
