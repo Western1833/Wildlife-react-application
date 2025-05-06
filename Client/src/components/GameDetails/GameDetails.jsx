@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import * as gameService from '../../services/gameService.js';
 import AuthContext from "../../contexts/authContext.js";
 
@@ -7,6 +7,7 @@ export default function GameDetails() {
     const { id } = useParams();
     const [game, setGame] = useState({});
     const { userId } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const isCreator = userId === game.creator;
 
@@ -15,6 +16,17 @@ export default function GameDetails() {
             .then(setGame)
             .catch(err => console.log(err));
     }, [id]);
+
+    const deleteGameHandler = async (e) => {
+        e.preventDefault();
+
+        try {
+            await gameService.gameDelete(id);
+            navigate('/games');
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     return (
         <section id="game-details">
@@ -34,7 +46,7 @@ export default function GameDetails() {
                     isCreator && (
                         <div className="buttons">
                             <Link to={`/games/${game.id}/edit`} className="button">Edit</Link>
-                            <Link to={`/games/${game.id}/delete`} className="button">Delete</Link>
+                            <a href="javascript:void(0)" className="button" onClick={deleteGameHandler}>Delete</a>
                         </div>
                     )
                 }

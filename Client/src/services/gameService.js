@@ -26,3 +26,7 @@ export const getLatestThree = async() => {
 export const gameEdit = async(id, gameData) => {
     await request('PATCH', `${baseUrl}/${id}`, gameData);
 }
+
+export const gameDelete = async (id) => {
+    await request('DELETE', `${baseUrl}/${id}`);
+}

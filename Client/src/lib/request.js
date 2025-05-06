@@ -14,6 +14,10 @@ export async function request(method, url, body) {
 
     if (!response.ok) throw new Error('Request failed!');
 
-    const result = await response.json();
-    return result;
+    if(response.status !== 204){
+        const result = await response.json();
+        return result;
+    }
+
+    return;
 }
