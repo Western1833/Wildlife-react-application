@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useForm from "../../hooks/useForm.js";
 import { useState, useEffect } from "react";
 import * as gameService from '../../services/gameService.js';
@@ -7,9 +7,15 @@ import * as gameService from '../../services/gameService.js';
 export default function GameEdit() {
     const { id } = useParams();
     const [game, setGame] = useState({});
+    const navigate = useNavigate();
 
-    const editGameHandler = () => {
-        // your submit logic
+    const editGameHandler = async () => {
+        try{
+            await gameService.gameEdit(id, values);
+            navigate(`/games/${id}/details`);
+        }catch(err){
+            console.log(err);
+        }
     };
 
     const { values, onChange, onSubmit, setValues } = useForm(editGameHandler, {

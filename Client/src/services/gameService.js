@@ -22,3 +22,7 @@ export const getLatestThree = async() => {
 
     return response.data;
 }
+
+export const gameEdit = async(id, gameData) => {
+    await request('PATCH', `${baseUrl}/${id}`, gameData);
+}
