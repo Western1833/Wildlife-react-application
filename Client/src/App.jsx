@@ -15,6 +15,8 @@ import GameEdit from "./components/GameEdit/GameEdit.jsx";
 function App() {
   const navigate = useNavigate();
   const [auth, setAuth] = useState({});
+  const [errorLogin, setErrorLogin] = useState('');
+  const [errorRegister, setErrorRegister] = useState('');
 
   useEffect(() => {
     const restoreUser = async () => {
@@ -27,28 +29,38 @@ function App() {
         setAuth({});
       }
     };
-  
+
     restoreUser();
   }, []);
-  
+
 
   const loginSubmitHandler = async (values) => {
-    const result = await authService.login(values.email, values.password);
-    
-    setAuth(result);
-    navigate('/');
-  }
+    try {
+      const result = await authService.login(values.email, values.password);
+
+      setAuth(result);
+      navigate('/');
+    } catch (err) {
+      setErrorLogin(err.message);
+    }
+  };
+
 
   const registerSubmitHandler = async (values) => {
-    const result = await authService.register(values.email, values.password, values.passwordConfirm);
 
-    setAuth(result);
-    navigate('/login');
-  }
+    try {
+      const result = await authService.register(values.email, values.password, values.passwordConfirm);
+
+      setAuth(result);
+      navigate('/login');
+    } catch (err) {
+      setErrorRegister(err.message);
+    }
+  };
 
   const logoutHandler = () => {
     setAuth({});
-  }
+  };
 
   const values = {
     loginSubmitHandler,
@@ -68,14 +80,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/games" element={<GamesCatalogue />} />
           <Route path="/games/create" element={<GamesCreate />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login error={errorLogin} />} />
+          <Route path="/register" element={<Register error={errorRegister}/>} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/games/:id/details" element={<GameDetails />} />
-          <Route path="/games/:id/edit" element={<GameEdit/>} />
+          <Route path="/games/:id/edit" element={<GameEdit />} />
         </Routes>
       </div>
-      </AuthContext.Provider>
+    </AuthContext.Provider>
   );
 }
 

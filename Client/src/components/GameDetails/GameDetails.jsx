@@ -19,12 +19,15 @@ export default function GameDetails() {
 
     const deleteGameHandler = async (e) => {
         e.preventDefault();
-
+    
+        const confirmed = window.confirm("Are you sure you want to delete this game?");
+        if (!confirmed) return;
+    
         try {
             await gameService.gameDelete(id);
             navigate('/games');
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
     }
 
@@ -46,7 +49,7 @@ export default function GameDetails() {
                     isCreator && (
                         <div className="buttons">
                             <Link to={`/games/${game.id}/edit`} className="button">Edit</Link>
-                            <a href="javascript:void(0)" className="button" onClick={deleteGameHandler}>Delete</a>
+                            <a href="#" className="button" onClick={deleteGameHandler}>Delete</a>
                         </div>
                     )
                 }

@@ -1,9 +1,10 @@
+/*eslint-disable */
 import { useContext } from "react";
 import useForm from "../../../hooks/useForm.js";
 import AuthContext from "../../../contexts/authContext.js";
 import { Link } from "react-router-dom";
 
-export default function Register() {
+export default function Register({error}) {
     const {registerSubmitHandler} = useContext(AuthContext);
 
     const {values, onChange, onSubmit} = useForm(registerSubmitHandler, {
@@ -11,6 +12,15 @@ export default function Register() {
         password: '',
         passwordConfirm: ''
     });
+
+    error = error.split(': ')[2];
+
+    if(error.includes('required')) error = 'Email is required!';
+    if(error.includes('match')) error = 'Passwords do not match!';
+    if(error.includes('shorter')) error = 'Password should be at least 4 characters!';
+    if(error.includes('provide')) error = 'Please provide a password!';
+    if(error.includes('Please confirm your password.')) error = 'Please confirm your password!';
+    if(error.includes('validation')) error = 'Email is not valid!';
 
     return(
         <section id="register-page" className="content auth">
@@ -27,7 +37,7 @@ export default function Register() {
 
                 <label htmlFor="confirm-password">Confirm Password:</label>
                 <input type="password" name="passwordConfirm" id="confirm-password" onChange={onChange} value={values.passwordConfirm} />
-
+                {error && <p style={{color: 'red'}}>{error}</p>}
                 <input className="btn submit" type="submit" value="Register" />
 
                 <p className="field">

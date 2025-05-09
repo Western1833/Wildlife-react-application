@@ -1,9 +1,10 @@
+/*eslint-disable */
 import { Link } from "react-router-dom";
 import useForm from "../../../hooks/useForm.js";
 import { useContext } from 'react';
 import AuthContext from "../../../contexts/authContext.js";
 
-export default function Login() {
+export default function Login({error}) {
     const {loginSubmitHandler} = useContext(AuthContext);
 
     const {values, onChange, onSubmit} = useForm(loginSubmitHandler, {
@@ -23,6 +24,7 @@ export default function Login() {
 
                 <label htmlFor="login-password">Password:</label>
                 <input type="password" id="login-password" name="password" onChange={onChange} value={values.password} />
+                {error && <p style={{color: 'red'}}>{JSON.parse(error)}</p>}
                 <input type="submit" className="btn submit" value="Login" />
                 <p className="field">
                     <span>If you don&apos;t have profile click <Link to="/register">here</Link></span>

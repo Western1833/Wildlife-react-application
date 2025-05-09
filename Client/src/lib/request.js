@@ -12,7 +12,11 @@ export async function request(method, url, body) {
 
     const response = await fetch(url, options);
 
-    if (!response.ok) throw new Error('Request failed!');
+    if (!response.ok) {
+        const result = await response.json();
+
+        throw new Error( result.message || 'Request failed!');
+    }
 
     if(response.status !== 204){
         const result = await response.json();
